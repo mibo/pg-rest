@@ -59,13 +59,13 @@ public class BeanWriter {
     public void writeTo(List<Bean> beans, Class<?> aClass, Type type, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, Object> multivaluedMap, OutputStream outputStream) throws IOException, WebApplicationException {
       StringBuilder b = new StringBuilder("[");
 
-      for (Bean bean : beans) {
+      beans.forEach(bean -> {
         if(b.length() > 1) {
           b.append(", ");
         }
         final byte[] contentAsBytes = bean.getContent().getBytes(Charset.forName("utf-8"));
         b.append(Base64.getEncoder().encodeToString(contentAsBytes));
-      }
+      });
       b.append("]");
 
       outputStream.write(b.toString().getBytes(Charset.forName("utf-8")));
