@@ -14,7 +14,7 @@ import java.util.Base64;
 /**
  */
 @Path("message")
-public class Endpoint {
+public class StringEndpoint {
 
   @GET
   @Path("/plain")
