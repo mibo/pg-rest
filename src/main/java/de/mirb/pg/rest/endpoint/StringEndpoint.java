@@ -1,4 +1,4 @@
-package de.mirb.pg.rest;
+package de.mirb.pg.rest.endpoint;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

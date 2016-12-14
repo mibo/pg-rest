@@ -1,4 +1,6 @@
-package de.mirb.pg.rest;
+package de.mirb.pg.rest.endpoint;
+
+import de.mirb.pg.rest.data.Bean;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -9,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by michael on 14.12.16.
  */
 @Path("bean")
 public class BeanEndpoint {

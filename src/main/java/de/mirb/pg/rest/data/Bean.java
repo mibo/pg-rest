@@ -1,4 +1,4 @@
-package de.mirb.pg.rest;
+package de.mirb.pg.rest.data;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

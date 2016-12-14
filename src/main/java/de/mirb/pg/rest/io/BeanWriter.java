@@ -1,4 +1,6 @@
-package de.mirb.pg.rest;
+package de.mirb.pg.rest.io;
+
+import de.mirb.pg.rest.data.Bean;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
@@ -17,8 +19,6 @@ import java.util.List;
 /**
  */
 public class BeanWriter {
-
-
   @Provider
   @Produces(MediaType.APPLICATION_OCTET_STREAM)
   public static class SingleBeanWriter implements MessageBodyWriter<Bean> {
