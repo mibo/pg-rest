@@ -4,6 +4,7 @@ import de.mirb.pg.rest.data.Bean;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -39,6 +40,22 @@ public class BeanEndpoint {
   public Bean singleBeanWithAcceptXml() {
 
     return new Bean("hey", "XML bean!");
+  }
+
+  @GET
+  @Path("single/{extension:.+}")
+  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_OCTET_STREAM })
+  public Bean singleBeanWithExtension(@PathParam("extension") String extension) {
+
+    return new Bean("hey, I'am extended!", "bean ext:" + extension);
+  }
+
+  @GET
+  @Path("single/{extension:.+}")
+  @Produces({ MediaType.APPLICATION_XML })
+  public Bean singleBeanWithExtensionAndAcceptXml(@PathParam("extension") String extension) {
+
+    return new Bean("hey, I'am extended!", "Extended XML bean:" + extension);
   }
 
   @GET
