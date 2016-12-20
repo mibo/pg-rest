@@ -1,5 +1,9 @@
 = JAX-RS (REST) Playground project
 
+JAX-RS (REST) Playground project
+
+[ TOC ]
+
 == Disclaimer
 Current source code and version is published without license. +
 If you (somebody) want to use this in his project please contact me.
@@ -33,7 +37,9 @@ This `JAX-RS (REST) Playground` project is just a playground for my personal _JA
 
   * *none*
 
-== Helpful links
+== Helpful...
+
+=== Links
 
   * *link:https://jersey.java.net/documentation/latest/jaxrs-resources.html[Jersey Documentation: JAX-RS]*
   ** link:https://jersey.java.net/documentation/latest/jaxrs-resources.html#d0e2714[Rules of Injection]
@@ -42,3 +48,7 @@ This `JAX-RS (REST) Playground` project is just a playground for my personal _JA
   * *REST and HATEOAS*
   ** link:http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api#requirements[Blog Post: Overview]
   ** link:https://blog.philipphauer.de/restful-api-design-best-practices/[Blog Post: Best practices]
+
+=== Presentation
+
+  * link:http://www.slideshare.net/josdirksen/rest-from-get-to-hateoas[Slideshare: REST: From GET to HATEOAS]
