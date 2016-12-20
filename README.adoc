@@ -32,3 +32,13 @@ This `JAX-RS (REST) Playground` project is just a playground for my personal _JA
 == Roadmap
 
   * *none*
+
+== Helpful links
+
+  * *link:https://jersey.java.net/documentation/latest/jaxrs-resources.html[Jersey Documentation: JAX-RS]*
+  ** link:https://jersey.java.net/documentation/latest/jaxrs-resources.html#d0e2714[Rules of Injection]
+  * *link:https://docs.oracle.com/cd/E19798-01/821-1841/6nmq2cp0n/index.html[Oracle docs: Part III - Web Services]*
+  ** link:https://docs.oracle.com/cd/E19798-01/821-1841/gipyw/index.html[Extracting resources]
+  * *REST and HATEOAS*
+  ** link:http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api#requirements[Blog Post: Overview]
+  ** link:https://blog.philipphauer.de/restful-api-design-best-practices/[Blog Post: Best practices]
