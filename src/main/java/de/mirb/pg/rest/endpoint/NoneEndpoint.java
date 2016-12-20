@@ -9,6 +9,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("none")
+@Produces(MediaType.APPLICATION_JSON)
 public class NoneEndpoint {
 
   @GET
@@ -24,9 +25,15 @@ public class NoneEndpoint {
     return Response.ok().entity("{ \"Say\": \"Nothing to see.\" }").build();
   }
 
+  /*
+   * Calling this method results in a 500 internal server error,
+   * because it is called based on `Accept` header and `path`
+   * however the response rendering fails because there is no
+   * MessageBodyWriter known for NotSupportedBean.
+   */
   @GET
   @Path("plain")
-  @Produces(MediaType.TEXT_PLAIN)
+  @Produces({MediaType.TEXT_PLAIN, MediaType.APPLICATION_OCTET_STREAM})
   public Response doBean() {
 
     return Response.ok().entity(new NotSupportedBean("Not supported", "Nothing to see."))
