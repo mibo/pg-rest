@@ -27,6 +27,8 @@ This `JAX-RS (REST) Playground` project is just a playground for my personal _JA
     ** one `res/bean/...` for testing with `Bean` responses and according `MessageBodyWriter`
       *** A `MessageBodyWriter` for `Bean`
       *** A `MessageBodyWriter` for `List<Bean>`
+    ** one `res/none/...' for testing with valid/supported accept type (_based on `@Produces`_) but not supported `MessageBodyWriter`.
+    ** one `res/multi' for testing with same path but different accept types and methods (one `Accept`/`@Produces` maps to one `method`).
 
 
 == New and Noteworthy
