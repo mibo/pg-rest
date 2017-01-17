@@ -24,7 +24,7 @@ public class BeanWriter {
   public static class SingleBeanWriter implements MessageBodyWriter<Bean> {
     @Override
     public boolean isWriteable(Class<?> aClass, Type type, Annotation[] annotations, MediaType mediaType) {
-      return type == Bean.class;
+      return type == Bean.class && mediaType.equals(MediaType.APPLICATION_OCTET_STREAM_TYPE);
     }
 
     @Override

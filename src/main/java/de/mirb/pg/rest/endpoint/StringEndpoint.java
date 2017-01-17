@@ -25,7 +25,7 @@ public class StringEndpoint {
   }
 
   @GET
-  @Path("{rawpath:.*}")
+  @Path("{rawpath:.+}")
   @Produces({ MediaType.TEXT_PLAIN, MediaType.APPLICATION_OCTET_STREAM })
   public String rawPath(@PathParam("rawpath") String path, @Context HttpHeaders headers) {
     final String result = "hey duke@path: " + path;

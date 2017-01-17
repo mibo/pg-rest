@@ -10,6 +10,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
@@ -20,6 +21,8 @@ import de.mirb.pg.rest.data.Bean;
  */
 @Path("bean")
 public class BeanEndpoint {
+
+  @Context HttpHeaders headers;
 
   @GET
   @Path("response/single")
@@ -54,18 +57,39 @@ public class BeanEndpoint {
 
   @GET
   @Path("single/{extension:.+}")
-  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_OCTET_STREAM })
+  @Produces({ MediaType.APPLICATION_OCTET_STREAM })
+  public Bean singleBeanWithExtensionOctet(@PathParam("extension") String extension) {
+
+    return new Bean("hey, I'am extended!", "bean ext-octet:" + extension);
+  }
+
+  @GET
+  @Path("single/{extension:.+}")
+  @Produces({ MediaType.APPLICATION_JSON })
   public Bean singleBeanWithExtension(@PathParam("extension") String extension) {
 
-    return new Bean("hey, I'am extended!", "bean ext:" + extension);
+    return new Bean("hey, I'am extended!", "bean ext-json:" + extension);
   }
+
 
   @GET
   @Path("single/{extension:.+}")
   @Produces({ MediaType.APPLICATION_XML })
   public Bean singleBeanWithExtensionAndAcceptXml(@PathParam("extension") String extension) {
-
+    if(headerAcceptContains("*")) {
+      return singleBeanWithExtensionOctet(extension);
+    }
     return new Bean("hey, I'am extended!", "Extended XML bean:" + extension);
+  }
+
+  private boolean headerAcceptContains(String acceptValue) {
+    List<String> headerValues = headers.getRequestHeader("Accept");
+    for (String headerValue : headerValues) {
+      if(headerValue.contains(acceptValue)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   @GET

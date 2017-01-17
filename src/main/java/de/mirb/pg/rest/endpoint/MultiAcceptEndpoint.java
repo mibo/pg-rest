@@ -3,18 +3,40 @@ package de.mirb.pg.rest.endpoint;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Path("multi")
-@Produces(MediaType.APPLICATION_JSON)
 public class MultiAcceptEndpoint {
 
+  @Context HttpHeaders headers;
+
   @GET
+  @Produces(MediaType.WILDCARD)
+  public Response acceptSink() {
+    String accept = getAcceptHeader();
+    return Response.ok().entity(buildJson("Method", "acceptSink"))
+        .header("Content-Type", "text/plain")
+        .header("x-accept-sink", "true")
+        .header("x-req-accept", accept)
+        .build();
+  }
+
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
   public Response defaultFromClass() {
-    return Response.ok().entity(buildJson("Method", "Default from class.")).build();
+    String accept = getAcceptHeader();
+    if(accept.contains("*")) {
+      return acceptSink();
+    }
+    return Response.ok()
+        .header("x-req-accept", accept)
+        .entity(buildJson("Method", "Default from class.")).build();
   }
 
 
@@ -30,15 +52,21 @@ public class MultiAcceptEndpoint {
   @GET
   @Produces({MediaType.TEXT_PLAIN, MediaType.APPLICATION_OCTET_STREAM})
   public Response differentFromClass() {
+    String accept = getAcceptHeader();
 
-    return Response.ok().entity(buildJson("Method", "Different From Class.")).build();
+    return Response.ok()
+        .header("x-req-accept", accept)
+        .entity(buildJson("Method", "Different From Class.")).build();
   }
 
   @GET
   @Produces(MediaType.APPLICATION_XML)
   public Response differentFromClassSingle() {
+    String accept = getAcceptHeader();
 
-    return Response.ok().entity(buildJson("Method", "Different From Class Single.")).build();
+    return Response.ok()
+        .header("x-req-accept", accept)
+        .entity(buildJson("Method", "Different From Class Single.")).build();
   }
 
   private String buildJson(String ... values) {
@@ -64,5 +92,11 @@ public class MultiAcceptEndpoint {
       b.append("\"").append(k).append("\":\"").append(v).append("\"");
     });
     return b.append("}").toString();
+  }
+
+  private String getAcceptHeader() {
+    List<String> acceptHeaders = headers.getRequestHeader("Accept");
+    return acceptHeaders.toString();
+    //    return headers.getHeaderString("Accept");
   }
 }
