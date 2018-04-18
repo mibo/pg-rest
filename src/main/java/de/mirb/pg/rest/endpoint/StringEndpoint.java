@@ -1,13 +1,14 @@
 package de.mirb.pg.rest.endpoint;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.json.*;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.nio.charset.Charset;
 import java.util.Base64;
 
@@ -19,9 +20,56 @@ public class StringEndpoint {
   @GET
   @Path("/plain")
   @Produces({ MediaType.TEXT_PLAIN, MediaType.APPLICATION_OCTET_STREAM })
-  public String plainTest() {
+  public String getPlain() {
 
     return "hey duke!";
+  }
+
+  @POST
+  @Path("/plain")
+  @Produces({ MediaType.TEXT_PLAIN })
+  @Consumes({ MediaType.TEXT_PLAIN })
+  public String postPlain(String content) {
+
+    return "hey duke says: " + content;
+  }
+
+  /**
+   * Sample POST:
+   *
+   * <p><code>
+      curl -X POST -H "Accept: application/json" -H "Content-Type: application/json" \
+      -d '{ "name": "mibo", "message": "Hello Json!" }' \
+      "http://localhost:8080/pg-rest/res/message/json"
+   * </code></p>
+   * which results in
+   * <p><code>
+   *   {"name":"mibo","say":{"message":"Hello Json!"}}
+   * </code></p>
+   *
+   * @param bean
+   * @return
+   */
+  @POST
+  @Path("/json")
+  @Produces( MediaType.APPLICATION_JSON )
+  @Consumes( MediaType.APPLICATION_JSON )
+  public String postJson(BasicJsonBean bean) {
+
+    JsonValue json = Json.createObjectBuilder()
+        .add("name", bean.name)
+        .add("say",
+            Json.createObjectBuilder().add("message", bean.message).build()
+            ).build();
+
+    return json.toString();
+  }
+
+  @XmlRootElement
+  @XmlAccessorType(XmlAccessType.FIELD)
+  public static class BasicJsonBean {
+    private String name;
+    private String message;
   }
 
   @GET
